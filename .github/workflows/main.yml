@@ -40,4 +40,4 @@ jobs:
           aws-region: us-east-1
           
     - name: Deploy to ec2
-      run: aws ssm send-command --document-name "AWS-RunRemoteScript" --instance-ids "i-0fe4812c72084796b" --parameters '{"sourceType":["GitHub"],"sourceInfo":["{\"owner\":\"Jainsi1\", \"repository\":\"react-app-deployment-on-ec2\", \"path\":\"/build\"}"],"commandLine":["server -s build"]}'
+      run: aws ssm send-command --document-name "AWS-RunRemoteScript" --instance-ids "i-0fe4812c72084796b" --parameters '{"sourceType":["GitHub"],"sourceInfo":["{\"owner\":\"Jainsi1\", \"repository\":\"react-app-deployment-on-ec2\", \"path\":\"/build\"}"],"commandLine":["server -s build"],"working-directory":["/home/ubuntu"]}'
