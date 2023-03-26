@@ -21,6 +21,11 @@ jobs:
         
     - name: build app
       uses: virtuecloud/Composite-actions/Build/Node@test
+                
+     
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync build/ s3://flask-buckett --delete 
+      
  deploy:
    runs-on: ubuntu-latest
    name: to deploy react app
@@ -38,6 +43,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-          
+     
     - name: Deploy to ec2
-      run: aws ssm send-command --document-name "AWS-RunRemoteScript" --instance-ids "i-0fe4812c72084796b" --parameters '{"sourceType":["GitHub"],"sourceInfo":["{\"owner\":\"Jainsi1\", \"repository\":\"react-app-deployment-on-ec2\", \"path\":\"/build\"}"],"commandLine":["server -s build"],"workingDirectory":["/home/ubuntu"]}'
+      run: aws ssm send-command --document-name "AWS-RunRemoteScript" --instance-ids "i-0161cb4d1ea84157e" --parameters '{"sourceType":["S3"],"sourceInfo":["{\"path\":\"https://flask-buckett.s3.us-east-1.amazonaws.com\"}"],"commandLine":["serve -s build"],"workingDirectory":["/home/ubuntu"]}'
+
+          
+    
