@@ -36,4 +36,4 @@ jobs:
     - name:  Invalidate cache
       uses: virtuecloud/Composite-actions/Deploy/Cloudfront@test
       with:
-         AWS_DISTRIBUTION_ID: E3IX5ALS4G2D7D
+         AWS_DISTRIBUTION_ID: EHAO58LMMRB49
