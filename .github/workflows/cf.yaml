@@ -19,15 +19,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-    - name: Install dependency
-      uses: actions/setup-node@v1
     - name: Build React App
       uses: virtuecloud/Composite-actions/Build/Node@test
+      
     - name: Deploy app build to S3 bucket
       uses: virtuecloud/Composite-actions/Deploy/S3@test
       with:
          BUCKET_NAME: randdom
          PATH: react/build/
+         
     - name:  Invalidate cache
       uses: virtuecloud/Composite-actions/Deploy/Cloudfront@test
       with:
